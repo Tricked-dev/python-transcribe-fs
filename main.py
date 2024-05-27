@@ -51,8 +51,7 @@ class MyHandler(FileSystemEventHandler):
                 print(f"Killed job for {path}")
             del self.jobs[path]
         filename = os.path.splitext(os.path.basename(path))[0]
-        if os.path.exists(os.path.join(OUTPUT, filename + ".vtt")) or
-                os.path.exists(
+        if os.path.exists(os.path.join(OUTPUT, filename + ".vtt")) or os.path.exists(
             os.path.join(OUTPUT, filename + ".txt")
         ):
             print(f"Skipping job for {path} because the output already exists")
