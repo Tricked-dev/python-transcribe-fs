@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - model_cache:/root/.cache/huggingface
+    command: python main.py
+
+volumes:
+  model_cache:
