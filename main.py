@@ -50,6 +50,14 @@ class MyHandler(FileSystemEventHandler):
                 self.jobs[path].kill()
                 print(f"Killed job for {path}")
             del self.jobs[path]
+        filename = os.path.splitext(os.path.basename(path))[0]
+        if os.path.exists(os.path.join(OUTPUT, filename + ".vtt")) or
+                os.path.exists(
+            os.path.join(OUTPUT, filename + ".txt")
+        ):
+            print(f"Skipping job for {path} because the output already exists")
+            return
+
         self.sizes[path] = size
         self.start_job(path)
 
@@ -61,6 +69,11 @@ class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
         if event.is_directory:
             return
+        for filename in os.listdir(INPUT):
+            path = os.path.join(INPUT, filename)
+            if os.path.isfile(path):
+                self.run_job(path)
+
         self.run_job(event.src_path)
 
     def on_deleted(self, event):
