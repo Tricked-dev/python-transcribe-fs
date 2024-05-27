@@ -72,7 +72,7 @@ class MyHandler(FileSystemEventHandler):
 class VttToTxtHandler(FileSystemEventHandler):
     cooking = False
 
-    def on_modified(self):
+    def on_modified(self, event):
         if self.cooking:
             return
         self.cooking = True
