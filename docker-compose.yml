@@ -7,6 +7,9 @@ services:
       - .:/usr/src/app
       - model_cache:/root/.cache/huggingface
     command: python main.py
-
+    deploy:
+      resources:
+        limits:
+          cpus: '3.0'
 volumes:
   model_cache:
